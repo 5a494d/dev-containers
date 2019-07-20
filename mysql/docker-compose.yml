@@ -1,0 +1,28 @@
+version: "2"
+
+services:
+  mysqldb:
+    image: mysql:5.7.26
+    container_name: mysqllocal
+    restart: always
+    environment:
+      - MYSQL_DATABASE=another
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=localuser
+      - MYSQL_PASSWORD=localuser
+    ports:
+      - 3306:3306
+    volumes:
+      - $PWD/data:/var/lib/mysql
+      - $PWD/config:/etc/mysql/conf.d
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - 8585:80
+    depends_on: 
+      - mysqldb
+    environment:
+      - PMA_HOST=mysqldb

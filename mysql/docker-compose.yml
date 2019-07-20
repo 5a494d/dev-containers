@@ -14,7 +14,6 @@ services:
       - 3306:3306
     volumes:
       - $PWD/data:/var/lib/mysql
-      - $PWD/config:/etc/mysql/conf.d
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
